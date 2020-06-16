@@ -1,0 +1,88 @@
+﻿<Window x:Class="Lab0613.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lab0613"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid Margin="3">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Content="Искать в:"
+                   Padding="0"/>
+            <TextBox Grid.Column="1"
+                     Text="{Binding SearchDir, Mode=TwoWay}"
+                     Width="Auto"/>
+            <Button Grid.Column="2"
+                    Content="изменить"
+                    HorizontalAlignment="Right"
+                    Command="{Binding ChangeSearchDirCommand}"/>
+        </Grid>
+        <Grid Grid.Row="1"
+              Margin="0 3 0 0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0"
+                   Content="Паттерн (Regex):"
+                   Padding="0"/>
+            <TextBox Grid.Column="1"
+                     Text="{Binding Pattern, Mode=TwoWay}"/>
+            <CheckBox Grid.Column="2"
+                      Content="искать рекурсивно"
+                      VerticalAlignment="Center"
+                      IsChecked="{Binding IsRecursivelySearch}"/>
+            <Button Grid.Column="3"
+                    Content="поиск"
+                    Command="{Binding SearchCommand}"/>
+        </Grid>
+        <ScrollViewer Grid.Row="2"
+                      VerticalScrollBarVisibility="Visible"
+                      Margin="0 6 0 0">
+            <StackPanel Orientation="Vertical">
+                <ItemsControl ItemsSource="{Binding SearchResults}">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid Margin="0 0 0 3">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox Grid.Column="0"
+                                         IsReadOnly="True"
+                                         Text="{Binding Filename, Mode=OneWay}"/>
+                                <Button Grid.Column="1"
+                                        Content="открыть"
+                                        Command="{Binding OpenFileCommand}"/>
+                                <Button Grid.Column="2"
+                                        Content="архивировать"
+                                        Command="{Binding ArchiveFileCommand}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </StackPanel>
+        </ScrollViewer>
+        <Button Grid.Row="3"
+                Content="Архивировать все"
+                HorizontalAlignment="Left"
+                Command="{Binding ArchiveAllCommand}"
+                Margin="0 3 0 0"/>
+    </Grid>
+</Window>

@@ -1,0 +1,8 @@
+Formula: !!(a | b)
+	PDNF: (a & ! b) | (! a & b) | (a & b)
+	PCNF: (a | b)
+
+Formula: !(a|b)
+	PDNF: (! a & ! b)
+	PCNF: (! a | b) & (a | ! b) & (! a | ! b)
+
